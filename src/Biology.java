@@ -54,7 +54,7 @@ public class Biology {
 	}
 
 	private boolean MutateOffspring(Route route) {
-		if (Util.RandomInt(10) > 0) {
+		if (Util.RandomInt(10) > 6) {
 			route.Mutate();
 			mutationCount++;
 			return true;
