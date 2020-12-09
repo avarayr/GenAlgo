@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -16,17 +17,24 @@ public class InputFileReader {
 		Util.Separator();
 		CityList.getInstance().List.forEach(City::Print);
 		Util.Separator();
-//		Util.Print("Printing a random route ... ");
-//		Route.FromRandom().PrintAsNames();
+		Util.Print("Printing a random route ... ");
+		Route.FromRandom().PrintAsNames(true);
 		Util.Separator();
 
-		// change hardcoded to user input
-		int initialPopulation = 5;
-		int epochs = 5;
+
+		Scanner in = new Scanner(System.in);
+		System.out.print("Enter epoch count (recommended: 10000): ");
+		int epochs = in.nextInt();
+		System.out.print("Enter initial population size (recommended: 100): ");
+		int initialPopulation = in.nextInt();
+
+		System.out.println();
 
 		var biology = new Biology(initialPopulation, epochs);
 
-		biology.Print();
+		biology.StartEvolution();
+
+
 	}
 
 	private void InitCityListSingleton() throws FileNotFoundException {

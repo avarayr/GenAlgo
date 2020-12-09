@@ -22,10 +22,9 @@ public class Route {
 
 	public static Route FromRandom() {
 
-		Random rnd = new Random();
 		var ar = CityList.getInstance().List.stream().map(city -> city.index).mapToInt(i -> i).toArray();
 		for (int i = ar.length - 1; i > 0; i--) {
-			int index = rnd.nextInt(i + 1);
+			int index = Util.RandomInt(i + 1);
 			int a = ar[index];
 			ar[index] = ar[i];
 			ar[i] = a;
@@ -64,13 +63,34 @@ public class Route {
 		System.out.println();
 	}
 
-	void Mate(Route another) {
+	public void SetCityAtIndex(int naturalIndex, City city) {
+		Cities.set(naturalIndex, city);
+		CityIndexes[naturalIndex] = city.index;
+	}
+
+	public Route Mate(Route another) {
 		// mating algorithm is based on human DNA.
 		// DNA is approximately 50% father, 50% mother
 		// so first half of route is preserved, while second half is replaced with another.
-		Route result = new Route(Cities);
-		
+		Route result = new Route((ArrayList<City>) Cities.clone());
+		if (Cities.size() != another.Cities.size()) {
+			throw new AssertionError("City lengths are not equal");
+		}
+		int half = Cities.size() / 2;
+
+		for (int i = half; i < Cities.size() - 1; i++) {
+			result.SetCityAtIndex(i, another.Cities.get(i));
+		}
+		return result;
 	}
 
 
+	public void Mutate() {
+		var index1 = Util.RandomInt(Cities.size());
+		var index2 = Util.RandomInt(index1 == Cities.size() - 1 ? index1 - 1 : index1 + 1);
+		ArrayList<City> citiesClone = (ArrayList<City>) Cities.clone();
+		SetCityAtIndex(index1, citiesClone.get(index2));
+		SetCityAtIndex(index2, citiesClone.get(index1));
+
+	}
 }
