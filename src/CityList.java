@@ -15,30 +15,34 @@ public class CityList {
 	}
 
 	public static CityList getInstance() {
-		 if(singleton == null) {
-            throw new AssertionError("You have to call init first");
-        }
+		if (singleton == null) {
+			throw new AssertionError("You have to call init first");
+		}
 
 		return singleton;
 	}
 
 
-    public synchronized static void init(ArrayList<City> list) {
-        if (singleton != null)
-        {
-            throw new AssertionError("You already initialized me");
-        }
+	public synchronized static void init(ArrayList<City> list) {
+		if (singleton != null) {
+			throw new AssertionError("You already initialized me");
+		}
 
-        singleton = new CityList(list);
-    }
+		singleton = new CityList(list);
+	}
 
-    public City Get(int index) {
+	public City Get(int index) {
 		return List.get(index);
-    }
+	}
 
-    public City Get(String cityName) {
+	public City Get(String cityName) {
 		return cityHashMap.get(cityName);
-    }
+	}
 
 
+//
+//
+//	public int[] GenerateRandomRoute() {
+//
+//	}
 }

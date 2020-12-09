@@ -28,6 +28,7 @@ public class City {
 				.forEach(costInt -> costs.add(costInt));
 	}
 
+
 	public void Print() {
 		System.out.print(String.format("(%d) %s = ", index, name));
 		for (var cost : costs) {
@@ -39,4 +40,13 @@ public class City {
 	public int GetCostTo(int cityIndex) {
 		return costs.get(cityIndex);
 	}
+
+	public int GetCostTo(City city) {
+		return costs.get(city.index);
+	}
+
+	public static int GetCost(City from, City to) {
+		return from.GetCostTo(to);
+	}
+
 }

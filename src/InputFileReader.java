@@ -11,6 +11,25 @@ public class InputFileReader {
 	}
 
 	public void ProcessFile() throws FileNotFoundException {
+		InitCityListSingleton();
+		Util.Print("Node Count = " + CityList.getInstance().List.size());
+		Util.Separator();
+		CityList.getInstance().List.forEach(City::Print);
+		Util.Separator();
+//		Util.Print("Printing a random route ... ");
+//		Route.FromRandom().PrintAsNames();
+		Util.Separator();
+
+		// change hardcoded to user input
+		int initialPopulation = 5;
+		int epochs = 5;
+
+		var biology = new Biology(initialPopulation, epochs);
+
+		biology.Print();
+	}
+
+	private void InitCityListSingleton() throws FileNotFoundException {
 		var cityList = new ArrayList<City>();
 		Scanner scanner = new Scanner(file);
 		int index = 0;
@@ -19,9 +38,8 @@ public class InputFileReader {
 			cityList.add(city);
 		}
 		scanner.close();
-		System.out.println("Node Count = " + cityList.size());
-		cityList.forEach(City::Print);
 
 		CityList.init(cityList);
 	}
+
 }
